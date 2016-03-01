@@ -48,17 +48,6 @@ int main(int argc, char *argv[])
 {
     QCoreApplication app(argc, argv);
     QString configFileName=searchConfigFile();
-
-    // Session store
-    QSettings* sessionSettings=new QSettings(configFileName,QSettings::IniFormat,&app);
-    sessionSettings->beginGroup("sessions");
-    RequestMapper::sessionStore=new HttpSessionStore(sessionSettings,&app);
-
-    // Static file controller
-    QSettings* fileSettings=new QSettings(configFileName,QSettings::IniFormat,&app);
-    fileSettings->beginGroup("files");
-    RequestMapper::staticFileController=new StaticFileController(fileSettings,&app);
-
     // HTTP server
     QSettings* listenerSettings=new QSettings(configFileName,QSettings::IniFormat,&app);
     listenerSettings->beginGroup("listener");
