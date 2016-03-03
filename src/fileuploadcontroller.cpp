@@ -5,10 +5,9 @@ FileUploadController::FileUploadController()
 
 void FileUploadController::service(HttpRequest& request, HttpResponse& response)
 {
-   qDebug() << "here:" << request.getHeader("Content-type");
+    //we recieved post with picture to check. Lets get it from temp file
+    // and copy it to app files folder in order to check it!
    if (QTemporaryFile* image = request.getUploadedFile("userfile") ) {
-       qDebug() << "image exists"<< image->size() << image->fileName();
-
        if (QFile::exists("D:/qt/MyFirstWebApp/docroot/files/file1.png"))
        {
            QFile::remove("D:/qt/MyFirstWebApp/docroot/files/file1.png");
