@@ -11,7 +11,8 @@ void RegisterController::service(HttpRequest &request, HttpResponse &response) {
     //registration comes in 2 stages: login and email and 3 photos.
 
     if (request.getHeader("Content-Type").contains("multipart")){
-        //if we recieving multipart data - this is our pictures.
+        //if we recieving multipart data - this is our pictures, stage 2
+        //we already checked the userdata, so we can make new folder for him
         //we need to make folder in a style of "username+email" and place all 3 pics there
         QTemporaryFile* image;
         QDir().mkdir("D:/qt/MyFirstWebApp/docroot/files/" + username + email);
@@ -21,6 +22,7 @@ void RegisterController::service(HttpRequest &request, HttpResponse &response) {
             image->copy("D:/qt/MyFirstWebApp/docroot/files/" + username + email+"/userfile" + QByteArray::number(i) + ".png");
             image->remove();
             if (i ==2 ){
+                qDebug() << "sending ok";
                 response.write("ok",true);
              }
             }
